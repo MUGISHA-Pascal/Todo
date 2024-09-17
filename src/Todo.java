@@ -40,14 +40,25 @@ public static void main(string[] args){
         case "update task":
             System.out.println("enter the title of the task to update :");
             String taskTitleUpdate = scanner.nextLine();
-
+            System.out.println("enter the new to task description :");
+            String newTaskDescription = scanner.nextLine();
+            for(int task=0;task<taskCollections.length;task++){
+               if(taskCollections[task].title == taskTitleUpdate){
+                   taskCollections[task].description=newTaskDescription;
+               }
+            }
             break;
         case "delete task":
             System.out.println("enter the title of the task to delete :");
             String taskTitleDelete = scanner.nextLine();
+            for(int task=0;task<taskCollections.length;task++){
+                if(taskCollections[task].title == taskTitleDelete){
+                    taskCollections.remove(taskCollections[task]);
+                }
+            }
             break;
         default:
-
+            String errorMessage="unknown option";
             break;
     }
 }
