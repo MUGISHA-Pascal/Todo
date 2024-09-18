@@ -1,9 +1,11 @@
 import java.util.Scanner;
+import java.util.ArrayList;
+import classes.AddTask;
 
 public class Todo{
-public static void main(string[] args){
+public static void main(String[] args){
     Scanner scanner = new Scanner(System.in);
-    class task{
+    class Task{
        String title;
        String description;
     }
@@ -18,42 +20,40 @@ public static void main(string[] args){
     System.out.println("5. total number of tasks");
     System.out.println("------------------------------------");
     System.out.println("choose option (number):");
-    String choice = scanner.nextLine();
-    task[] taskCollections;
+    int choice = scanner.nextInt();
+    ArrayList<Task> taskCollections= new ArrayList<>();
     switch (choice){
-        case "add task":
-            System.out.println("enter the task title :");
-            String taskTitle = scanner.nextLine();
-            System.out.println("enter the task description :");
-            String taskDescription = scanner.nextLine();
-            task taskCollection = new task();
-            taskCollection.title=taskTitle;
-            taskCollection.description=taskDescription;
+        case 1:
+            AddTask AddTaskObj = new AddTask();
+            AddTaskObj.print();
+            Task taskCollection = new Task();
+            taskCollection.title=AddTaskObj.taskTitle;
+            taskCollection.description=AddTaskObj.taskDescription;
             taskCollections.add(taskCollection);
             break;
-        case "view tasks":
-            for(int task=0;task<taskCollections.length;task++){
+        case 2:
+            for(Task taskValue : taskCollections){
                 System.out.println("available tasks : ");
-                System.out.println(taskCollections[task].title,taskCollections[task].description);
+                System.out.println(taskValue.title + " " + taskValue.description);
             }
             break;
-        case "update task":
+        case 3:
             System.out.println("enter the title of the task to update :");
             String taskTitleUpdate = scanner.nextLine();
             System.out.println("enter the new to task description :");
             String newTaskDescription = scanner.nextLine();
-            for(int task=0;task<taskCollections.length;task++){
-               if(taskCollections[task].title == taskTitleUpdate){
-                   taskCollections[task].description=newTaskDescription;
+            for(Task taskValue : taskCollections){
+                          if(taskValue.title.equals(taskTitleUpdate)){
+                   taskValue.description=newTaskDescription;
                }
             }
             break;
-        case "delete task":
+        case 4:
             System.out.println("enter the title of the task to delete :");
             String taskTitleDelete = scanner.nextLine();
-            for(int task=0;task<taskCollections.length;task++){
-                if(taskCollections[task].title == taskTitleDelete){
-                    taskCollections.remove(taskCollections[task]);
+            for(Task taskValue : taskCollections){
+                if(taskValue.title.equals(taskTitleDelete)){
+                    taskCollections.remove(taskValue);
                 }
             }
             break;
