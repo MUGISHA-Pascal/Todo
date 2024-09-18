@@ -3,6 +3,7 @@ import java.util.Scanner;
 public class AddTask{
        public String taskTitle="";
         public String taskDescription="";
+        public static int totalNumberOfTasks;
         public void print() {
             Scanner scanner = new Scanner(System.in);
             System.out.println("enter the task title :");
