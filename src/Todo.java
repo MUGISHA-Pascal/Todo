@@ -2,14 +2,18 @@ import java.util.Scanner;
 import java.util.ArrayList;
 import classes.AddTask;
 
+class Task {
+    String title;
+    String description;
+    static int totalNumberOfTasks = 0;
+}
+
 public class Todo {
     public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        ArrayList<Task> taskCollections = new ArrayList<>();
+
         while (true) {
-            Scanner scanner = new Scanner(System.in);
-            class Task {
-                String title;
-                String description;
-            }
             System.out.println("welcome to smart to-do management");
             System.out.println("------------------------------------");
             System.out.println("options :");
@@ -22,7 +26,8 @@ public class Todo {
             System.out.println("------------------------------------");
             System.out.println("choose option (number):");
             int choice = scanner.nextInt();
-            ArrayList<Task> taskCollections = new ArrayList<>();
+            scanner.nextLine(); // Consume newline character
+
             switch (choice) {
                 case 1:
                     AddTask AddTaskObj = new AddTask();
@@ -31,18 +36,18 @@ public class Todo {
                     taskCollection.title = AddTaskObj.taskTitle;
                     taskCollection.description = AddTaskObj.taskDescription;
                     taskCollections.add(taskCollection);
-                    taskCollection.totalNumberOfTasks++;
+                    Task.totalNumberOfTasks++;
                     break;
                 case 2:
+                    System.out.println("available tasks:");
                     for (Task taskValue : taskCollections) {
-                        System.out.println("available tasks : ");
                         System.out.println(taskValue.title + " " + taskValue.description);
                     }
                     break;
                 case 3:
-                    System.out.println("enter the title of the task to update :");
+                    System.out.println("enter the title of the task to update:");
                     String taskTitleUpdate = scanner.nextLine();
-                    System.out.println("enter the new to task description :");
+                    System.out.println("enter the new task description:");
                     String newTaskDescription = scanner.nextLine();
                     for (Task taskValue : taskCollections) {
                         if (taskValue.title.equals(taskTitleUpdate)) {
@@ -51,22 +56,18 @@ public class Todo {
                     }
                     break;
                 case 4:
-                    System.out.println("enter the title of the task to delete :");
+                    System.out.println("enter the title of the task to delete:");
                     String taskTitleDelete = scanner.nextLine();
-                    for (Task taskValue : taskCollections) {
-                        if (taskValue.title.equals(taskTitleDelete)) {
-                            taskCollections.remove(taskValue);
-                        }
-                    }
+                    taskCollections.removeIf(taskValue -> taskValue.title.equals(taskTitleDelete));
                     break;
                 case 5:
-                    System.out.println("the total number of tasks is :"+taskCollection.totalNumberOfTasks);
+                    System.out.println("the total number of tasks is: " + Task.totalNumberOfTasks);
                     break;
                 case 6:
-//                    process.exit();
+                    System.exit(0);
                     break;
                 default:
-                    String errorMessage = "unknown option";
+                    System.out.println("unknown option");
                     break;
             }
         }
